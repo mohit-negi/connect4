@@ -1,0 +1,36 @@
+import React, { useState } from 'react'
+import { Text, View, StyleSheet } from 'react-native'
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
+const ScratchpadTimer = () => {
+  const [isPlaying, setIsPlaying] = React.useState(true)
+  return (
+    <CountdownCircleTimer
+      size={80}
+      strokeWidth={8}
+      isPlaying={isPlaying}
+      duration={30}
+      colors={[
+        '#000',
+        '#000',
+        '#000',
+        '#000',
+        '#000',
+        '#000',
+        '#000',
+        '#000',
+        '#000',
+      ]}
+      colorsTime={[10, 6, 3, 0]}
+      onComplete={() => ({ shouldRepeat: true, delay: 2 })}
+      updateInterval={1}
+    >
+      {({ remainingTime, color }) => (
+        <Text style={{ color, fontSize: 20 }}>{remainingTime}</Text>
+      )}
+    </CountdownCircleTimer>
+  )
+}
+
+const styles = StyleSheet.create({})
+
+export default ScratchpadTimer

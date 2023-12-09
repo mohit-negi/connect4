@@ -8,12 +8,11 @@ import {
   StatusBar,
   Dimensions,
 } from 'react-native'
-import { Col, Row, Grid } from 'react-native-easy-grid'
+import ScratchpadTop from './scratchpad.top'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 const gridSize = 7
-
 const Scratchpad = () => {
   const renderCells = () => {
     const cells = []
@@ -40,27 +39,7 @@ const Scratchpad = () => {
   }
   return (
     <View style={styles.scratchpadContainer}>
-      <View style={styles.topContainer}>
-        <View style={styles.topContainerLeft}>
-          <View style={styles.leftContainerTop}>
-            <Text>User1</Text>
-          </View>
-          <View style={styles.leftContainerBottom}>
-            <Text>Score</Text>
-          </View>
-        </View>
-        <View style={styles.topContainerMiddle}>
-          <Text>Timer</Text>
-        </View>
-        <View style={styles.topContainerRight}>
-          <View style={styles.leftContainerTop}>
-            <Text>User1</Text>
-          </View>
-          <View style={styles.leftContainerBottom}>
-            <Text>Score</Text>
-          </View>
-        </View>
-      </View>
+      <ScratchpadTop />
       <View style={styles.gridContainer}>{renderCells()}</View>
     </View>
   )
@@ -69,7 +48,7 @@ const Scratchpad = () => {
 const styles = StyleSheet.create({
   scratchpadContainer: {
     margin: windowWidth * 0.025,
-    height: windowHeight * 0.7,
+    height: windowHeight * 0.65,
     borderWidth: 2,
     backgroundColor: '#FEFEFF',
     borderRadius: 30,
@@ -105,16 +84,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     borderRadius: 50,
     backgroundColor: '#7A44FE',
-  },
-  topContainer: {
-    borderColor: '#0f0f',
-    borderWidth: 2,
-    display: 'flex',
-    flexDirection: 'row',
-    height: windowHeight * 0.15,
-    width: windowWidth * 0.9,
-    marginBottom: windowHeight * 0.02,
-    justifyContent: 'space-around',
   },
 })
 
