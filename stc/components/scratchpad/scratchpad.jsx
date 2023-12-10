@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createContext } from 'react'
 import {
   SafeAreaView,
   View,
@@ -21,6 +21,7 @@ const defaultColor = '#7A44FE'
 const initialGrid = Array.from({ length: numRows }, () =>
   Array.from({ length: numCols }, () => defaultColor)
 )
+export const context = createContext({ hello: 'afsda' })
 
 const Scratchpad = () => {
   const [scratchPad, setScratchPad] = useState(initialGrid)
@@ -65,9 +66,6 @@ const Scratchpad = () => {
     })
     return cells
   }
-  useEffect(() => {
-    renderCells()
-  }, initialGrid)
   return (
     <View style={styles.scratchpadContainer}>
       <ScratchpadTop />

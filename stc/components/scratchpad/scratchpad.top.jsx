@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import ScratchpadTimer from './scratchpad.timer/scratchpad.timer'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
-
+import { context } from './scratchpad'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 const ScratchpadTop = () => {
   const [scoreOne, setScoreOne] = useState(0)
   const [scoreTwo, setScoreTwo] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
+  const firstName = useContext(context)
+  console.log(firstName)
   return (
     <View style={styles.topContainer}>
       <View style={styles.topContainerLeft}>
