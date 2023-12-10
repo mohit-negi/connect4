@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import ScratchpadTimer from './scratchpad.timer/scratchpad.timer'
@@ -6,6 +6,8 @@ import ScratchpadTimer from './scratchpad.timer/scratchpad.timer'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 const ScratchpadTop = () => {
+  const [scoreOne, setScoreOne] = useState(0)
+  const [scoreTwo, setScoreTwo] = useState(0)
   return (
     <View style={styles.topContainer}>
       <View style={styles.topContainerLeft}>
@@ -13,7 +15,7 @@ const ScratchpadTop = () => {
           <Icon name="smileo" size={32} color="black" />
         </View>
         <View style={styles.leftScoreContainer}>
-          <Text style={styles.leftScore}>12</Text>
+          <Text style={styles.leftScore}>{scoreOne}</Text>
         </View>
       </View>
       <View style={styles.topContainerMiddle}>
@@ -21,7 +23,7 @@ const ScratchpadTop = () => {
       </View>
       <View style={styles.topContainerRight}>
         <View style={styles.rightScoreContainer}>
-          <Text style={styles.rightScore}>12</Text>
+          <Text style={styles.rightScore}>{scoreTwo}</Text>
         </View>
         <View style={styles.rightContainerIcon}>
           <Icon name="smileo" size={32} color="black" />
