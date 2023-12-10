@@ -7,6 +7,7 @@ import {
   Text,
   StatusBar,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native'
 import ScratchpadTop from './scratchpad.top'
 
@@ -16,17 +17,23 @@ const gridSize = 7
 const Scratchpad = () => {
   const renderCells = () => {
     const cells = []
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 6; i++) {
       const rowCells = []
       for (let j = 0; j < 7; j++) {
         rowCells.push(
-          <View key={`${i}-${j}`} style={styles.cellContainer}>
+          <TouchableOpacity
+            key={`${i}-${j}`}
+            style={styles.cellContainer}
+            onPress={() => {
+              console.log(i, j)
+            }}
+          >
             <View style={styles.cell}>
-              <Text style={{ color: 'white' }}>{`${
+              <Text style={{ color: 'white', fontSize: 20 }}>{`${
                 i + ',' + j
               }`}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         )
       }
       cells.push(

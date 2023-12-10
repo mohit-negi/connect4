@@ -1,12 +1,14 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import Scratchpad from '../../components/scratchpad/scratchpad'
-
+import PlayMenu from '../../components/PlayMenu/PlayMenu'
 const Homescreen = () => {
   return (
     <View style={styles.container}>
       {/* scratchpad */}
       <Scratchpad />
+      {/* play button */}
+      {/* <PlayMenu /> */}
     </View>
   )
 }
