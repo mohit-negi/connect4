@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   SafeAreaView,
   View,
@@ -13,37 +13,61 @@ import ScratchpadTop from './scratchpad.top'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
-const gridSize = 7
+
+//grid
+const numRows = 6
+const numCols = 7
+const defaultColor = '#7A44FE'
+const initialGrid = Array.from({ length: numRows }, () =>
+  Array.from({ length: numCols }, () => defaultColor)
+)
+
 const Scratchpad = () => {
+  const [scratchPad, setScratchPad] = useState(initialGrid)
+  const [currPlayer, setCurrPlayer] = useState('#F4c768')
+  const [isWinner, setIsWinner] = useState(false)
+
+  const handleCellPress = (i, j, currPlayer = 1) => {
+    if (currPlayer == 1) {
+      const newGrid = [...initialGrid]
+      newGrid[i][j] = '#F4c768'
+      console.log('Button', i, j, newGrid)
+      setScratchPad(newGrid)
+    }
+  }
   const renderCells = () => {
     const cells = []
-    for (let i = 0; i < 6; i++) {
+    initialGrid.map((row, i) => {
       const rowCells = []
-      for (let j = 0; j < 7; j++) {
+      initialGrid[i].map((currColor, j) => {
         rowCells.push(
           <TouchableOpacity
             key={`${i}-${j}`}
             style={styles.cellContainer}
             onPress={() => {
-              console.log(i, j)
+              handleCellPress(i, j)
+              console.log(currColor)
             }}
           >
-            <View style={styles.cell}>
+            <View style={styles.cell(i, j, currColor)}>
               <Text style={{ color: 'white', fontSize: 20 }}>{`${
                 i + ',' + j
               }`}</Text>
             </View>
           </TouchableOpacity>
         )
-      }
+      })
       cells.push(
         <View key={i} style={styles.row}>
           {rowCells}
         </View>
       )
-    }
+    })
     return cells
   }
+  useEffect(() => {
+    renderCells()
+  }, initialGrid)
   return (
     <View style={styles.scratchpadContainer}>
       <ScratchpadTop />
@@ -82,16 +106,18 @@ const styles = StyleSheet.create({
   cellContainer: {
     margin: 1,
   },
-  cell: {
+  cell: (i, j, currColor) => ({
     width: windowWidth * 0.1228,
     aspectRatio: 1, // Maintain a square aspect ratio for each cell
     borderWidth: 1,
     borderColor: '#000',
     borderTopWidth: 7,
+    borderRightWidth: 3,
+    borderLeftWidth: 3,
     shadowRadius: 3,
     borderRadius: 50,
-    backgroundColor: '#7A44FE',
-  },
+    backgroundColor: `${currColor}`,
+  }),
 })
 
 export default Scratchpad

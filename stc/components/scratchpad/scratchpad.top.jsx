@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import ScratchpadTimer from './scratchpad.timer/scratchpad.timer'
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 const ScratchpadTop = () => {
   const [scoreOne, setScoreOne] = useState(0)
   const [scoreTwo, setScoreTwo] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(true)
   return (
     <View style={styles.topContainer}>
       <View style={styles.topContainerLeft}>
@@ -19,7 +21,32 @@ const ScratchpadTop = () => {
         </View>
       </View>
       <View style={styles.topContainerMiddle}>
-        <ScratchpadTimer />
+        <CountdownCircleTimer
+          size={80}
+          strokeWidth={8}
+          isPlaying={isPlaying}
+          duration={30}
+          colors={[
+            '#000',
+            '#000',
+            '#000',
+            '#000',
+            '#000',
+            '#000',
+            '#000',
+            '#000',
+            '#000',
+          ]}
+          colorsTime={[10, 6, 3, 0]}
+          onComplete={() => ({ shouldRepeat: true, delay: 2 })}
+          updateInterval={1}
+        >
+          {({ remainingTime, color }) => (
+            <Text style={{ color, fontSize: 20 }}>
+              {remainingTime}
+            </Text>
+          )}
+        </CountdownCircleTimer>
       </View>
       <View style={styles.topContainerRight}>
         <View style={styles.rightScoreContainer}>
