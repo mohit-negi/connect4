@@ -7,12 +7,21 @@ import { MainContext } from '../../context/mainContext'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 const ScratchpadTop = () => {
-  const [scoreOne, setScoreOne] = useState(0)
-  const [scoreTwo, setScoreTwo] = useState(0)
-  const [isPlaying, setIsPlaying] = React.useState(true)
-  // const currPlayer = 1
-  const { currPlayer } = useContext(MainContext)
-  console.log('In top ', currPlayer)
+  //context
+  const { currPlayer, currPlayerColor, key } =
+    useContext(MainContext);
+  //logic behind timer color and score according to activity
+  const numOfColors = 10;
+  const colors = Array.from(
+    { length: numOfColors },
+    () => currPlayerColor
+  );
+  console.log(colors);
+
+  const [scoreOne, setScoreOne] = useState(0);
+  const [scoreTwo, setScoreTwo] = useState(0);
+  const [isPlaying, setIsPlaying] = React.useState(true);
+  console.log('In top ', currPlayer);
   return (
     <View style={styles.topContainer}>
       <View style={styles.topContainerLeft}>
@@ -29,26 +38,13 @@ const ScratchpadTop = () => {
           strokeWidth={8}
           isPlaying={isPlaying}
           duration={30}
-          colors={[
-            '#000',
-            '#000',
-            '#000',
-            '#000',
-            '#000',
-            '#000',
-            '#000',
-            '#000',
-            '#000',
-          ]}
+          key={key}
+          colors={colors}
           colorsTime={[10, 6, 3, 0]}
           onComplete={() => ({ shouldRepeat: true, delay: 2 })}
           updateInterval={1}
         >
-          {({ remainingTime, color }) => {
-            ;<Text style={{ color, fontSize: 20 }}>
-              {remainingTime}
-            </Text>
-          }}
+          {({ remainingTime }) => <Text>{remainingTime}</Text>}
         </CountdownCircleTimer>
       </View>
       <View style={styles.topContainerRight}>
@@ -60,7 +56,7 @@ const ScratchpadTop = () => {
         </View>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

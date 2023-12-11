@@ -23,46 +23,45 @@ const initialGrid = Array.from({ length: numRows }, () =>
   Array.from({ length: numCols }, () => defaultColor)
 )
 const Scratchpad = () => {
-  const [scratchPad, setScratchPad] = useState(initialGrid)
-  // const [currPlayer, setCurrPlayer] = useState('#F4c768')
-  const [isWinner, setIsWinner] = useState(false)
-
-  const { currPlayer, changeCurrPlayer } = useContext(MainContext)
+  const [scratchPad, setScratchPad] = useState(initialGrid);
+  const [isWinner, setIsWinner] = useState(false);
+  //context
+  const { currPlayer, changeCurrPlayer, currPlayerColor } =
+    useContext(MainContext);
 
   const handleCellPress = (i, j) => {
-    const playerOne = 1
-    console.log(i, j)
+    const playerOne = 1;
+    console.log(i, j);
     //turn logic
-    changeCurrPlayer()
+    changeCurrPlayer();
     //finding out the last filled column
-    let lastFilledRowInCol = 0
+    let lastFilledRowInCol = 0;
     for (let row = numRows - 1; row > 0; row--) {
       if (initialGrid[row][j] == defaultColor) {
-        lastFilledRowInCol = row
-        console.log('---', row, j)
-        break
+        lastFilledRowInCol = row;
+        console.log('---', row, j);
+        break;
       }
     }
 
-    const newGrid = [...initialGrid]
+    const newGrid = [...initialGrid];
     //color swapped by player turn
-    newGrid[lastFilledRowInCol][j] =
-      currPlayer == playerOne ? '#F4c768' : '#FB6584'
-    console.log('Button', i, j, newGrid)
-    setScratchPad(newGrid)
-  }
+    console.log('currColor', currPlayerColor);
+    newGrid[lastFilledRowInCol][j] = currPlayerColor;
+    console.log('Button', i, j, newGrid);
+    setScratchPad(newGrid);
+  };
   const renderCells = () => {
-    const cells = []
-    initialGrid.map((row, i) => {
-      const rowCells = []
-      initialGrid[i].map((currColor, j) => {
+    const cells = [];
+    scratchPad.map((row, i) => {
+      const rowCells = [];
+      scratchPad[i].map((currColor, j) => {
         rowCells.push(
           <TouchableOpacity
             key={`${i}-${j}`}
             style={styles.cellContainer}
             onPress={() => {
-              handleCellPress(i, j)
-              console.log(currColor)
+              handleCellPress(i, j);
             }}
           >
             <View style={styles.cell(i, j, currColor)}>
@@ -71,16 +70,16 @@ const Scratchpad = () => {
               }`}</Text>
             </View>
           </TouchableOpacity>
-        )
-      })
+        );
+      });
       cells.push(
         <View key={i} style={styles.row}>
           {rowCells}
         </View>
-      )
-    })
-    return cells
-  }
+      );
+    });
+    return cells;
+  };
   return (
     <View style={styles.scratchpadContainer}>
       <ScratchpadTop />
