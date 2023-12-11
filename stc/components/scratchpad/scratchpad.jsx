@@ -30,10 +30,20 @@ const Scratchpad = () => {
   const { name, changeName } = useContext(MainContext)
 
   const handleCellPress = (i, j, currPlayer = 1) => {
-    console.log(name, changeName)
+    console.log(i, j)
+    //finding out the last filled column
+    let lastFilledRowInCol = 0
+    for (let row = numRows - 1; row > 0; row--) {
+      if (initialGrid[row][j] == defaultColor) {
+        lastFilledRowInCol = row
+        console.log('---', row, j)
+        break
+      }
+    }
+
     if (currPlayer == 1) {
       const newGrid = [...initialGrid]
-      newGrid[i][j] = '#F4c768'
+      newGrid[lastFilledRowInCol][j] = '#F4c768'
       console.log('Button', i, j, newGrid)
       setScratchPad(newGrid)
     }
