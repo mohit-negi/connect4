@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {
   SafeAreaView,
   View,
@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import ScratchpadTop from './scratchpad.top'
+import { MainContext } from '../../context/mainContext'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -21,14 +22,15 @@ const defaultColor = '#7A44FE'
 const initialGrid = Array.from({ length: numRows }, () =>
   Array.from({ length: numCols }, () => defaultColor)
 )
-export const context = createContext({ hello: 'afsda' })
-
 const Scratchpad = () => {
   const [scratchPad, setScratchPad] = useState(initialGrid)
   const [currPlayer, setCurrPlayer] = useState('#F4c768')
   const [isWinner, setIsWinner] = useState(false)
 
+  const { name, changeName } = useContext(MainContext)
+
   const handleCellPress = (i, j, currPlayer = 1) => {
+    console.log(name, changeName)
     if (currPlayer == 1) {
       const newGrid = [...initialGrid]
       newGrid[i][j] = '#F4c768'
@@ -84,6 +86,9 @@ const styles = StyleSheet.create({
     padding: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    borderTopWidth: 5,
+    borderLeftWidth: 5,
+    borderRightWidth: 5,
     //shadow
     shadowColor: '#000',
     shadowOffset: {

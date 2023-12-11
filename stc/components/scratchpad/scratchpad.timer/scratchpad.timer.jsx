@@ -5,7 +5,6 @@ import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { useContext } from 'use-context-selector'
 
 const ScratchpadTimer = () => {
-  const firstName = useContextSelector(context)
   const [isPlaying, setIsPlaying] = React.useState(true)
 
   return (

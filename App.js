@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Homescreen from './stc/screens/HomeScreen/Homescreen';
+import { MainProvider } from './stc/context/mainContext'
 
 const STYLES = ['default', 'dark-content', 'light-content'];
 const TRANSITIONS = ['fade', 'slide', 'none'];
@@ -33,17 +34,19 @@ export default function App() {
     }
   };
   return (
-    <View style={styles.container}>
-      <StatusBar
-        animated={true}
-        backgroundColor="#ffff"
-        barStyle={statusBarStyle}
-        showHideTransition={statusBarTransition}
-        hidden={hidden}
-      />
-      <Homescreen/>
-    </View>
-  );
+    <MainProvider>
+      <View style={styles.container}>
+        <StatusBar
+          animated={true}
+          backgroundColor="#ffff"
+          barStyle={statusBarStyle}
+          showHideTransition={statusBarTransition}
+          hidden={hidden}
+        />
+        <Homescreen />
+      </View>
+    </MainProvider>
+  )
 }
 
 const styles = StyleSheet.create({
