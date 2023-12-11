@@ -4,13 +4,23 @@ import { View, StyleSheet } from 'react-native'
 export const MainContext = createContext()
 
 export const MainProvider = ({ children }) => {
-  var [name, setName] = useState('gell')
+  const [currPlayer, setCurrPlayer] = useState(1)
   const changeName = () => {
     setName('hello')
     console.log(name)
   }
+  const changeCurrPlayer = () => {
+    const playerOne = 1
+    const playerTwo = 2
+    if (currPlayer == playerOne) {
+      setCurrPlayer(playerTwo)
+    } else {
+      setCurrPlayer(playerOne)
+    }
+    console.log('current player updated', currPlayer)
+  }
   return (
-    <MainContext.Provider value={{ changeName, name }}>
+    <MainContext.Provider value={{ currPlayer, changeCurrPlayer }}>
       {children}
     </MainContext.Provider>
   )

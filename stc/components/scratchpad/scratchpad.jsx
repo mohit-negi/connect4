@@ -24,13 +24,16 @@ const initialGrid = Array.from({ length: numRows }, () =>
 )
 const Scratchpad = () => {
   const [scratchPad, setScratchPad] = useState(initialGrid)
-  const [currPlayer, setCurrPlayer] = useState('#F4c768')
+  // const [currPlayer, setCurrPlayer] = useState('#F4c768')
   const [isWinner, setIsWinner] = useState(false)
 
-  const { name, changeName } = useContext(MainContext)
+  const { currPlayer, changeCurrPlayer } = useContext(MainContext)
 
-  const handleCellPress = (i, j, currPlayer = 1) => {
+  const handleCellPress = (i, j) => {
+    const playerOne = 1
     console.log(i, j)
+    //turn logic
+    changeCurrPlayer()
     //finding out the last filled column
     let lastFilledRowInCol = 0
     for (let row = numRows - 1; row > 0; row--) {
@@ -41,12 +44,12 @@ const Scratchpad = () => {
       }
     }
 
-    if (currPlayer == 1) {
-      const newGrid = [...initialGrid]
-      newGrid[lastFilledRowInCol][j] = '#F4c768'
-      console.log('Button', i, j, newGrid)
-      setScratchPad(newGrid)
-    }
+    const newGrid = [...initialGrid]
+    //color swapped by player turn
+    newGrid[lastFilledRowInCol][j] =
+      currPlayer == playerOne ? '#F4c768' : '#FB6584'
+    console.log('Button', i, j, newGrid)
+    setScratchPad(newGrid)
   }
   const renderCells = () => {
     const cells = []

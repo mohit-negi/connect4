@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
+import { MainContext } from '../../context/mainContext'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -9,9 +10,9 @@ const ScratchpadTop = () => {
   const [scoreOne, setScoreOne] = useState(0)
   const [scoreTwo, setScoreTwo] = useState(0)
   const [isPlaying, setIsPlaying] = React.useState(true)
-
-  // const state = useContextSelector(context)
-  // console.log(state)
+  // const currPlayer = 1
+  const { currPlayer } = useContext(MainContext)
+  console.log('In top ', currPlayer)
   return (
     <View style={styles.topContainer}>
       <View style={styles.topContainerLeft}>
