@@ -8,7 +8,7 @@ const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 const ScratchpadTop = () => {
   //context
-  const { currPlayer, currPlayerColor, key } =
+  const { currPlayer, currPlayerColor, changeCurrPlayer, key } =
     useContext(MainContext);
   //logic behind timer color and score according to activity
   const numOfColors = 10;
@@ -21,6 +21,26 @@ const ScratchpadTop = () => {
   const [scoreOne, setScoreOne] = useState(0);
   const [scoreTwo, setScoreTwo] = useState(0);
   const [isPlaying, setIsPlaying] = React.useState(true);
+  //update score - adding score
+  const updateScore = () => {
+    const playerOne = 1;
+    console.log('Updated timer');
+    //this function is triggered whenever the timer restarts
+    //meaning there has been an inactivity by the current player
+    //which results in increase in score of alternate player
+    if (currPlayer == playerOne) {
+      let score = scoreOne;
+      score += 1;
+      setScoreOne(score);
+    } else {
+      let score = scoreTwo;
+      score += 1;
+      setScoreTwo(score);
+    }
+    changeCurrPlayer();
+    //return restart logic
+    return { shouldRepeat: true, delay: 0.5 };
+  };
   console.log('In top ', currPlayer);
   return (
     <View style={styles.topContainer}>
@@ -37,11 +57,11 @@ const ScratchpadTop = () => {
           size={80}
           strokeWidth={8}
           isPlaying={isPlaying}
-          duration={30}
+          duration={10}
           key={key}
           colors={colors}
           colorsTime={[10, 6, 3, 0]}
-          onComplete={() => ({ shouldRepeat: true, delay: 2 })}
+          onComplete={() => updateScore()}
           updateInterval={1}
         >
           {({ remainingTime }) => <Text>{remainingTime}</Text>}
