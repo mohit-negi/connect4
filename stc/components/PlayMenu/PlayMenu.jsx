@@ -15,7 +15,8 @@ const PlayMenu = () => {
   const [playPressed, setPlayPressd] = useState(false)
   const handlePlayButton = () => {
     console.log('Play button pressed', playPressed)
-    setPlayPressd(!playPressed)
+
+    // setPlayPressd(!playPressed);
   }
   return (
     <View style={styles.playMenuContainer}>
@@ -29,11 +30,12 @@ const PlayMenu = () => {
 
 const styles = StyleSheet.create({
   playMenuContainer: {
-    margin: windowWidth * 0.025,
-    width: windowWidth * 0.8,
-    height: windowHeight * 0.2,
+    flex:1,
+    margin: windowWidth * 0.050,
+    width: windowWidth *2,
+    height: windowHeight,
     borderWidth: 2,
-    backgroundColor: '#FEFEFF',
+    backgroundColor: '#000',
     borderRadius: 30,
     padding: 2,
     justifyContent: 'flex-end',

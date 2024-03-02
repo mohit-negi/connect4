@@ -8,8 +8,11 @@ export const MainProvider = ({ children }) => {
   const [playerOneColor, setPlayerOneColor] = useState('#F4c768');
   const [playerTwoColor, setPlayerTwoColor] = useState('#FB6584');
   const [currPlayerColor, setCurrPlayerColor] = useState('#F4c768');
+  const [winner, setWinner] = useState('#7A44FE');
   const [key, setKey] = useState(0);
-
+  const [scoreOne, setScoreOne] = useState(0);
+  const [scoreTwo, setScoreTwo] = useState(0);
+  // const 
   const resetTimer = () => {
     setKey((prev) => prev + 1);
   };
@@ -27,7 +30,24 @@ export const MainProvider = ({ children }) => {
       : setCurrPlayerColor(playerTwoColor);
     //resetting the color of the timer when altering player
     resetTimer();
-    console.log('current player updated', currPlayer);
+
+    ////console.log('current player updated', currPlayer);
+  };
+  const updateWinner = (winner) => {
+    setWinner(winner);
+  };
+  //tallying
+  const tallyScore = () => {
+    let defaultColor = '#5C2DD4';
+    let playerOne = '#F4c768';
+    let playerTwo = '#FB6584';
+    if (winner != defaultColor) {
+      if (winner == playerOne) {
+        setScoreOne(scoreOne + 1);
+      } else if (winner == playerTwo) {
+        setScoreTwo(scoreTwo + 1);
+      }
+    }
   };
   return (
     <MainContext.Provider
@@ -36,6 +56,8 @@ export const MainProvider = ({ children }) => {
         changeCurrPlayer,
         currPlayerColor,
         key,
+        updateWinner,
+        winner,
       }}
     >
       {children}

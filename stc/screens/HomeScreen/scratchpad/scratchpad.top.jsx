@@ -2,29 +2,35 @@ import React, { useState, useContext } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
-import { MainContext } from '../../context/mainContext'
+import { MainContext } from '../../../context/mainContext'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 const ScratchpadTop = () => {
   //context
-  const { currPlayer, currPlayerColor, changeCurrPlayer, key } =
-    useContext(MainContext);
+  const {
+    currPlayer,
+    currPlayerColor,
+    changeCurrPlayer,
+    key,
+    winner,
+  } = useContext(MainContext);
   //logic behind timer color and score according to activity
   const numOfColors = 10;
   const colors = Array.from(
     { length: numOfColors },
     () => currPlayerColor
   );
-  console.log(colors);
+  ////console.log(colors);
 
+  // const scoreTally()
   const [scoreOne, setScoreOne] = useState(0);
   const [scoreTwo, setScoreTwo] = useState(0);
   const [isPlaying, setIsPlaying] = React.useState(true);
-  //update score - adding score
+  //update score - adding score ----- updating score due to inactivity of curr player
   const updateScore = () => {
     const playerOne = 1;
-    console.log('Updated timer');
+    ////console.log('Updated timer');
     //this function is triggered whenever the timer restarts
     //meaning there has been an inactivity by the current player
     //which results in increase in score of alternate player
@@ -41,7 +47,20 @@ const ScratchpadTop = () => {
     //return restart logic
     return { shouldRepeat: true, delay: 0.5 };
   };
-  console.log('In top ', currPlayer);
+  //tallying
+  const tallyScore = () => {
+    let defaultColor = '#5C2DD4';
+    let playerOne = '#F4c768';
+    let playerTwo = '#FB6584';
+    if (winner != defaultColor) {
+      if (winner == playerOne) {
+        setScoreOne(scoreOne + 1);
+      } else if (winner == playerTwo) {
+        setScoreTwo(scoreTwo + 1);
+      }
+    }
+  };
+  ////console.log('top loaded ', currPlayer);
   return (
     <View style={styles.topContainer}>
       <View style={styles.topContainerLeft}>
